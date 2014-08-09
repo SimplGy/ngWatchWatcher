@@ -1,16 +1,16 @@
 # ngWatchWatcher
 
-Keep an eye on your Angular Watchers.
+> Keep an eye on your Angular Watchers.
+
+> The check engine light for your ng-code.
 
 ![Counts logged to console](/screenshot1.png?raw=true)
 
 Tools for helping you understand what's going on with Angular Watchers and scopes. You can think of it like:
 
-> The check engine light for your ng-code.
+##### [Live Demo (Look at the Console for the logs)](http://simpleascouldbe.github.io/ngWatchWatcher/)
 
-#### [Live Demo (Look at the Console for the logs)](http://simpleascouldbe.github.io/ngWatchWatcher/)
-
-"The WatchWatcher" (I almost called it "Every Little Step You Take") helps you keep an eye on what your app is doing.
+`ngWatchWatcher`(I almost called it "[Every Breath You Take](https://www.youtube.com/results?search_query=every+breath+you+take)") helps you keep an eye on what your app is doing.
 You can use this to premempt performance issues, or identify which components are causing them after the fact.
 
 ### Notes

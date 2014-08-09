@@ -1,4 +1,4 @@
-ww = angular.module('theWatchWatcher',[]);
+var ww = angular.module('theWatchWatcher',[]);
 
 
 // Usage:
@@ -7,6 +7,40 @@ ww = angular.module('theWatchWatcher',[]);
 // watchersE = watchCounters.byEl();
 // watchersS = watchCounters.byScope();
 
+ww.directive('watchLight', [ '$rootScope', function($rootScope){
+  return {
+    restrict: 'E',
+    template: '<i class="watchLight"\n   title="Blinking indicates $digest loop activity"\n   style="display: block; position: fixed; top: 10px; right: 10px; width:14px; height:14px; border-radius: 50%; background-color: #ddd;\n  -webkit-transition:background-color .15s, box-shadow .04s;\n  transition:background-color .15s, box-shadow .04s;\n"></i>',
+    replace: true,
+    link: function(scope, el, attrs){
+
+      var startTime = Date.now();
+      var watchCount = 0;
+      var turnOffLighter, turnOffShimmer;
+
+      function lightUp() {
+        el.css('background-color', '#5AB953');
+        el.css('box-shadow', 'inset 0 0 0 2px #29832B');
+      }
+      function unLighter() { el.css('background-color', '#ddd'); } // The light effect is slow and stays for a while, giving you a sense of general activity.
+      function unShimmer() { el.css('box-shadow', 'inset 0 0 0 0 #49A34B'); } // The shimmer effect is quick and leaves quickly, giving you a sense for rapid activity
+
+      function creepedOn() {
+        watchCount++;
+        console.log('watch ' + watchCount);
+        lightUp();
+        clearTimeout(turnOffLighter);
+        clearTimeout(turnOffShimmer);
+        turnOffLighter = setTimeout(unLighter, 500);
+        turnOffShimmer = setTimeout(unShimmer, 100);
+        return false; // Always return the same thing, so we don't trigger a watch change.
+      }
+
+      // Set this up on $rootScope, since we don't want DOM placement to determine which scope we're monitoring.
+      $rootScope.$watch(creepedOn);
+    }
+  }
+}]);
 
 
 ww.factory('watchCounters', [ '$rootScope', function($rootScope) {

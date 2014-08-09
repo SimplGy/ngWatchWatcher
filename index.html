@@ -11,7 +11,7 @@
     }
     .content {
       padding: 25px 50px;
-      max-width: 600px;
+      max-width: 800px;
       margin: 0 auto;
     }
     img {
@@ -27,30 +27,47 @@
       color: #bbb;
     }
     form {
-      margin-bottom: 50px;
+      width: 200px;
+      float: left;
+      margin: 0 25px 25px 0;
+    }
+    input {
+      width: 100%;
+    }
+    .link {
+      font-size: 14px;
+      color: #369;
     }
     .businessCard {
-      width: 350px;
-      height: 200px;
+      display: inline-block;
+      position: relative;
+      min-width: 175px;
+      min-height: 100px;
       border: 1px solid #ddd;
       box-shadow: 1px 2px 2px rgba(0,0,0,.2);
       box-sizing: border-box;
-      padding: 10px;
-      overflow: auto;
+      padding: 5px;
+      padding-left: 60px;
+      font-size: 11px;
+      color: #666;
+      margin-top: 10px;
+    }
+    .businessCard .name {
+      color: black;
+      font-weight: bold;
     }
     .businessCard .photo {
-      width: 80px;
-      min-height: 80px;
-      float: left;
-      margin: 0 10px 10px 0;
+      position: absolute;
+      top: 5px; left: 5px;
+      width: 50px;
+      height: 50px;
     }
     .businessCard p {
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     input[type="submit"] {
       margin-top: 10px;
-      width: 228px;
     }
 
     /* Validation Display */
@@ -66,8 +83,15 @@
 </head>
 <body ng-app="sampleApp" ng-controller="MainController">
 
+  <!-- The WatchLight triggers whenever any watch in your application fires. -->
+  <!-- This makes it obvious how your development choices are impacting the digest loop. -->
+  <watch-light></watch-light>
+
   <div class="content">
-    <form name="userForm" ng-submit="user.submitTheForm()">
+
+    <h1>My Sample Rolodex App</h1>
+
+    <form name="userForm" ng-submit="saveCurrentUser()">
       <label for="FirstName">First Name</label>
       <input  id="FirstName" name="FirstName" ng-model="user.firstName" required>
 
@@ -82,7 +106,7 @@
               required>
 
       <label for="Address1">Street Address</label>
-      <input  id="Address1" name="Address1" ng-model="user.address1" ng-pattern="/^\d+$/" required>
+      <input  id="Address1" name="Address1" ng-model="user.address1" required>
 
       <label for="PostalCode">Zip Code</label>
       <input  id="PostalCode" name="PostalCode" ng-model="user.postalCode"
@@ -90,101 +114,31 @@
 
       <br>
 
-      <input type="submit" value="Save" ng-disabled="userForm.$invalid" />
+      <input type="submit" value="Add to Rolodex" ng-disabled="userForm.$invalid" />
+      <br>
+      <a class="link" href="javascript:void(0);" ng-click="addFake()">Add Fake Card</a>
 
     </form>
 
-  <section class="businessCard">
-    <div class="photo">
-      <img src="http://thecatapi.com/api/images/get?format=src" alt="kitten"/>
+    <div class="rolodex">
+      <business-card ng-repeat="person in rolodex" person="person"></business-card>
     </div>
-    <p class="name">{{user.firstName}} {{user.lastName}}</p>
-    <p class="email">{{user.email}}</p>
-    <p class="phone">{{user.phone | phoneNumber}}</p>
-    <p class="address1">{{user.address1}}</p>
-    <p class="postalCode">{{user.postalCode}}</p>
-  </section>
 
   </div>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+
+  <!-- ngWatchWatcher Module -->
   <script src="theWatchWatcher.js"></script>
+
+  <!-- Sample App -->
   <script>
     angular.module('sampleApp',[ 'theWatchWatcher' ]);
-    angular.module('sampleApp').controller('MainController', function($scope, $interval, watchCounters, scopeCounters){
-
-      // Make it easy to get to the counters
-//      scope.counters = wwCounters;
-      function logCounts() {
-        console.log("Counts",{
-          watchersByEl:     watchCounters.byEl(),
-          watchersByScope:  watchCounters.byScope(),
-          scopesByEl:       scopeCounters.byEl(),
-          scopesByScope:    scopeCounters.byScope()
-        });
-      }
-//      $interval(logCounts, 3000);
-      setTimeout(logCounts, 10);
-
-
-
-
-
-      // Sample Application Stuff, not part of the Watch Watcher
-      $scope.user = {};
-      $scope.user.firstName = 'Gordon';
-      $scope.user.lastName = 'Sumner';
-      $scope.user.email = 'sting@thePolice.com';
-      $scope.user.phone = 1238675309;
-      $scope.user.address1 = '123 Sesame St';
-      $scope.user.postalCode = '12345';
-    });
-    // http://stackoverflow.com/a/16699507/111243
-    angular.module('sampleApp').filter('phoneNumber', function () {
-      return function (tel) {
-        if (!tel) { return ''; }
-
-        var value = tel.toString().trim().replace(/^\+/, '');
-
-        if (value.match(/[^0-9]/)) {
-          return tel;
-        }
-
-        var country, city, number;
-
-        switch (value.length) {
-          case 10: // +1PPP####### -> C (PPP) ###-####
-            country = 1;
-            city = value.slice(0, 3);
-            number = value.slice(3);
-            break;
-
-          case 11: // +CPPP####### -> CCC (PP) ###-####
-            country = value[0];
-            city = value.slice(1, 4);
-            number = value.slice(4);
-            break;
-
-          case 12: // +CCCPP####### -> CCC (PP) ###-####
-            country = value.slice(0, 3);
-            city = value.slice(3, 5);
-            number = value.slice(5);
-            break;
-
-          default:
-            return tel;
-        }
-
-        if (country == 1) {
-          country = "";
-        }
-
-        number = number.slice(0, 3) + '-' + number.slice(3);
-
-        return (country + " (" + city + ") " + number).trim();
-      };
-    });
   </script>
+  <script src="sampleApp/main.controller.js"></script>
+  <script src="sampleApp/businessCard.directive.js"></script>
+  <script src="sampleApp/phoneNumber.filter.js"></script>
+
 </body>
 </html>
