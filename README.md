@@ -4,9 +4,9 @@
 
 > The check engine light for your ng-code.
 
-Tools for helping you understand what's going on with Angular Watchers and scopes.
+![Counts logged to console](/screenshot1.png?raw=true)
 
-Getting the count of scopes and watchers in an angular application is non-trivial. There are isolate scopes.
+Tools for helping you understand what's going on with Angular Watchers and scopes.
 
 "The WatchWatcher" (I almost called it "Every Little Step You Take") helps you keep an eye on what your app is doing.
 You can use this to premempt performance issues, or identify which components are causing them after the fact.
