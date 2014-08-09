@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Sample Application with The WatchWatcher</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <style type="text/css">
+
+    html, body, p, h1, h2 {
+      margin: 0;
+    }
+    .content {
+      padding: 25px 50px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    img {
+      max-width: 100%;
+    }
+    body, input {
+      font-family: "helvetica neue", "Helvetica", sans-serif;
+      font-size: 20px;
+    }
+    label {
+      display: block;
+      margin: 5px 0 -5px 0;
+      color: #bbb;
+    }
+    form {
+      margin-bottom: 50px;
+    }
+    .businessCard {
+      width: 350px;
+      height: 200px;
+      border: 1px solid #ddd;
+      box-shadow: 1px 2px 2px rgba(0,0,0,.2);
+      box-sizing: border-box;
+      padding: 10px;
+      overflow: auto;
+    }
+    .businessCard .photo {
+      width: 80px;
+      min-height: 80px;
+      float: left;
+      margin: 0 10px 10px 0;
+    }
+    .businessCard p {
+      margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+      margin-top: 10px;
+      width: 228px;
+    }
+
+    /* Validation Display */
+    input.ng-dirty.ng-invalid {
+      background-color: rgba(255,50,0,.1);
+      box-shadow: inset 0 0 0 2px rgba(255,50,0,.25);
+    }
+    input.ng-dirty.ng-valid {
+      background-color: rgba(100,200,50,.1);
+      box-shadow: inset 0 0 0 2px rgba(100,200,50,.5);
+    }
+  </style>
+</head>
+<body ng-app="sampleApp" ng-controller="MainController">
+
+  <div class="content">
+    <form name="userForm" ng-submit="user.submitTheForm()">
+      <label for="FirstName">First Name</label>
+      <input  id="FirstName" name="FirstName" ng-model="user.firstName" required>
+
+      <label for="LastName">Last Name</label>
+      <input  id="LastName" name="LastName" ng-model="user.lastName" required>
+
+      <label for="Email">Email Address</label>
+      <input  id="Email" name="Email" type="email" ng-model="user.email">
+
+      <label for="Phone">Phone Number</label>
+      <input  id="Phone" name="Phone" ng-model="user.phone"
+              required>
+
+      <label for="Address1">Street Address</label>
+      <input  id="Address1" name="Address1" ng-model="user.address1" ng-pattern="/^\d+$/" required>
+
+      <label for="PostalCode">Zip Code</label>
+      <input  id="PostalCode" name="PostalCode" ng-model="user.postalCode"
+              ng-minlength="5" ng-maxlength="5" required>
+
+      <br>
+
+      <input type="submit" value="Save" ng-disabled="userForm.$invalid" />
+
+    </form>
+
+  <section class="businessCard">
+    <div class="photo">
+      <img src="http://thecatapi.com/api/images/get?format=src" alt="kitten"/>
+    </div>
+    <p class="name">{{user.firstName}} {{user.lastName}}</p>
+    <p class="email">{{user.email}}</p>
+    <p class="phone">{{user.phone | phoneNumber}}</p>
+    <p class="address1">{{user.address1}}</p>
+    <p class="postalCode">{{user.postalCode}}</p>
+  </section>
+
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js"></script>
+  <script src="theWatchWatcher.js"></script>
+  <script>
+    angular.module('sampleApp',[ 'theWatchWatcher' ]);
+    angular.module('sampleApp').controller('MainController', function($scope, $interval, watchCounters, scopeCounters){
+
+      // Make it easy to get to the counters
+//      scope.counters = wwCounters;
+      function logCounts() {
+        console.log("Counts",{
+          watchersByEl:     watchCounters.byEl(),
+          watchersByScope:  watchCounters.byScope(),
+          scopesByEl:       scopeCounters.byEl(),
+          scopesByScope:    scopeCounters.byScope()
+        });
+      }
+//      $interval(logCounts, 3000);
+      setTimeout(logCounts, 10);
+
+
+
+
+
+      // Sample Application Stuff, not part of the Watch Watcher
+      $scope.user = {};
+      $scope.user.firstName = 'Gordon';
+      $scope.user.lastName = 'Sumner';
+      $scope.user.email = 'sting@thePolice.com';
+      $scope.user.phone = 1238675309;
+      $scope.user.address1 = '123 Sesame St';
+      $scope.user.postalCode = '12345';
+    });
+    // http://stackoverflow.com/a/16699507/111243
+    angular.module('sampleApp').filter('phoneNumber', function () {
+      return function (tel) {
+        if (!tel) { return ''; }
+
+        var value = tel.toString().trim().replace(/^\+/, '');
+
+        if (value.match(/[^0-9]/)) {
+          return tel;
+        }
+
+        var country, city, number;
+
+        switch (value.length) {
+          case 10: // +1PPP####### -> C (PPP) ###-####
+            country = 1;
+            city = value.slice(0, 3);
+            number = value.slice(3);
+            break;
+
+          case 11: // +CPPP####### -> CCC (PP) ###-####
+            country = value[0];
+            city = value.slice(1, 4);
+            number = value.slice(4);
+            break;
+
+          case 12: // +CCCPP####### -> CCC (PP) ###-####
+            country = value.slice(0, 3);
+            city = value.slice(3, 5);
+            number = value.slice(5);
+            break;
+
+          default:
+            return tel;
+        }
+
+        if (country == 1) {
+          country = "";
+        }
+
+        number = number.slice(0, 3) + '-' + number.slice(3);
+
+        return (country + " (" + city + ") " + number).trim();
+      };
+    });
+  </script>
+</body>
+</html>
