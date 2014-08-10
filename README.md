@@ -1,4 +1,4 @@
-# ngWatchWatcher
+# ngWatchWatcher [Demo](http://simpleascouldbe.github.io/ngWatchWatcher/)
 
 > The check engine light for your ng-code.
 
@@ -32,7 +32,7 @@ Keep an eye on your scope and watcher counts:
 
 ### Usage
 
-Include the `ngWatchWatcher` module.
+Include `ngWatchWatcher.min.js` and make the `ngWatchWatcher` module a dependency of your app.
 
 If you'd like the activity light, add a `<watch-light></watch-light>` directive tag anywhere in your markup.
 

@@ -64,7 +64,7 @@ angular.module('sampleApp').controller('MainController', function($scope, $inter
   }
   // For testing that the duration of digests is actually measured, it should grow when this method is used.
   function computedName() {
-    sleep = 10;
+    sleep = 15;
     now = Date.now();
     while(Date.now() - now < sleep){};
     return 'Computed Name';
