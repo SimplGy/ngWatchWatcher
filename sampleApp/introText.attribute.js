@@ -5,7 +5,7 @@ angular.module('sampleApp').directive('introText', function(){
 
       var margin = 10;
 
-      setTimeout(showTip, 1000);
+      setTimeout(showTip, 2000);
 
       function showTip() {
         var tip = $("<p style='position: fixed; transition: all .3s; box-shadow: 0 0 0 3px white; display:inline-block; padding: 5px; border-radius: 3px; font-size:14px; background: black; color: white;'>" + attrs.introText + "</p>");

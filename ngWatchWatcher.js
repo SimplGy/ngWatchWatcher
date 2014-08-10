@@ -1,3 +1,8 @@
+
+
+angular.module('watchWatcher',[]);
+
+
 // Usage:
 // scopesE   = scopeCounters.byEl();
 // scopesS   = scopeCounters.byScope();
@@ -211,7 +216,3 @@ angular.module('watchWatcher').directive('watchLight', [ '$rootScope', function(
     }
   }
 }]);
-
-
-angular.module('watchWatcher',[]);
-

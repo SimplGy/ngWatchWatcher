@@ -75,14 +75,7 @@
   <!-- Sample App -->
   <script>
     angular.module('sampleApp',[ 'watchWatcher' ]);
-    angular.module('sampleApp').run(function($timeout, $interval, watchCounters, scopeCounters){
-
-
-      // Show the help bubble
-      $timeout(function(){
-        var msg = "";
-        $('.watchLight').attr('intro-text', msg);
-      }, 2500);
+    angular.module('sampleApp').run(function($interval, watchCounters, scopeCounters){
 
 //      console.log("Counts",{
 //        watchersByEl:     watchCounters.byEl(),
@@ -95,7 +88,7 @@
         // This interval is kicking off a $digest.
         // In a real app this would be doing work.
         // Here I'm just showing that the activity indicator picks it up.
-      }, 1000);
+      }, 4000);
     });
   </script>
   <script src="sampleApp/main.controller.js"></script>

@@ -45,11 +45,17 @@ module.exports = (grunt) ->
 
     uglify:
       min:
-        files: 'ngWatchWatcher.min.js': [ 'ngWatchWatcher/*.js' ]
+        files: 'ngWatchWatcher.min.js': [
+          'ngWatchWatcher/watchWatcher.module.js' # Matches the pattern, but has to be first in source order
+          'ngWatchWatcher/*.js'
+        ]
 
     concat:
       noMin:
-        files: 'ngWatchWatcher.js': [ 'ngWatchWatcher/*.js' ]
+        files: 'ngWatchWatcher.js': [
+          'ngWatchWatcher/watchWatcher.module.js' # Matches the pattern, but has to be first in source order
+          'ngWatchWatcher/*.js'
+        ]
 
 
 
@@ -66,4 +72,4 @@ module.exports = (grunt) ->
 
   grunt.registerTask "build", [ "uglify", "concat"]
 
-  grunt.registerTask "default", [ "server" ]
+  grunt.registerTask "default", [ "build", "server" ]
