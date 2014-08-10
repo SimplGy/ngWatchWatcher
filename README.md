@@ -59,5 +59,5 @@ An accurate count of all scopes in an angular application is tricky.
 
 * Finding scopes by element, even if you start at the body tag, won't find the `$rootScope`, so it'll always be at least one scope short.
 * Finding scopes by element also won't find scopes that are not drawn, say, a lightbox/modal.
-* Finding scopes by scope can not find isolate scopes, such as those in directives.
+* Finding scopes by scope won't find scopes from different modules, since each has its own `$rootScope`
 * Counting watchers has the same challenges because they are accessed through scope.

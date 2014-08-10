@@ -62,7 +62,7 @@ angular.module('watchWatcher').factory('scopeCounters', [ '$rootScope', function
 
   // Publicize
   return api = {
-//    countChildren: countChildrenOfScope,
+    countChildren: countChildrenOfScope,
     byEl: scopesByEl,
     byScope: scopesByScope
   };
