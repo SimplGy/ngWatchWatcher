@@ -19,13 +19,18 @@ Tools for helping you understand what's going on with Angular Watchers and scope
 
 ## Features
 
+Visually monitor `$digest` activity:
+
+![$digest activity light](/screenshot2.png?raw=true)
+
+Click the light to for info on your `$digest` performance:
+
+![$digest activity light](/screenshot3.png?raw=true)
+
 Keep an eye on your scope and watcher counts:
 
 ![Counts logged to console](/screenshot1.png?raw=true)
 
-Visually monitor `$digest` activity:
-
-![$digest activity light](/screenshot2.png?raw=true)
 
 ## Usage
 
@@ -37,11 +42,13 @@ To print scope or watch information, just inject the factory and use the method 
 
 ```javascript
 app.run(function(watchCounters, scopeCounters){
-  console.log("Counts",{
-    watchersByEl:     watchCounters.byEl(),
-    watchersByScope:  watchCounters.byScope(),
-    scopesByEl:       scopeCounters.byEl(),
-    scopesByScope:    scopeCounters.byScope()
+
+    watchCounters.byEl();    // An array of watchers, found by traversing elements
+    watchCounters.byScope(); // An array of watchers found by traversing from $rootScope
+    
+    scopeCounters.byEl();    // Array of scopes found by scope traversal
+    scopeCounters.byScope(); // Array of scopes found by $rootScope traversal
+
   });
 });
 ```
