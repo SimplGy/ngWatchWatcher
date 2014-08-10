@@ -50,16 +50,27 @@ angular.module('sampleApp').controller('MainController', function($scope, $inter
     $('input:first').focus(); // start in a nice spot
   };
 
-  $scope.addFake = function(){
+  $scope.addFake = function(computedName){
     $scope.user = {
       firstName: 'Bob',
       lastName: 'Jones',
+      computedName: computedName,
       email: 'bob@jones.com',
       phone: 1238675309,
       address1: '123 Sesame St',
       postalCode: Math.floor(Math.random() * 10000)
     }
     $scope.saveCurrentUser();
+  }
+  // For testing that the duration of digests is actually measured, it should grow when this method is used.
+  function computedName() {
+    sleep = 10;
+    now = Date.now();
+    while(Date.now() - now < sleep){};
+    return 'Computed Name';
+  }
+  $scope.addSlowWatch = function(){
+    $scope.addFake(computedName);
   }
 
 });

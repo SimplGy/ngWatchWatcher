@@ -20,7 +20,7 @@
 
   <div class="content">
 
-    <h1>Sample Rolodex App</h1>
+    <h1>Sample Rolodex App <span class="muted">(For Performance Measurement)</span></h1>
 
     <form name="userForm" ng-submit="saveCurrentUser()">
       <label for="FirstName">First Name</label>
@@ -48,6 +48,10 @@
       <input type="submit" value="Add to Rolodex" ng-disabled="userForm.$invalid" />
       <br>
       <a class="link" href="javascript:void(0);" ng-click="addFake()">Add Fake Card</a>
+      <br>
+      <a class="link" href="javascript:void(0);" ng-click="addSlowWatch()"
+              title="This adds a card with a computed first name that takes some MS. You should see a difference in average digest time if you use this.">
+        Fake a Slow Computed Value</a>
 
     </form>
 
@@ -72,11 +76,21 @@
   <!-- Sample App -->
   <script>
     angular.module('sampleApp',[ 'watchWatcher' ]);
-    angular.module('sampleApp').run(function($timeout, $interval){
+    angular.module('sampleApp').run(function($timeout, $interval, watchCounters, scopeCounters){
+
+
+      // Show the help bubble
       $timeout(function(){
         var msg = "";
         $('.watchLight').attr('intro-text', msg);
       },2000);
+
+//      console.log("Counts",{
+//        watchersByEl:     watchCounters.byEl(),
+//        watchersByScope:  watchCounters.byScope(),
+//        scopesByEl:       scopeCounters.byEl(),
+//        scopesByScope:    scopeCounters.byScope()
+//      });
 
       $interval(function(){
         // This interval is kicking off a $digest.

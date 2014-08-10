@@ -6,13 +6,11 @@
 
 ## Why Use `ngWatchWatcher`?
 
-Answer these questions about your application's performance:
+It helps you answer questions about your Angular application's performance:
 
-* How many $digests per second does your app use?
+* How many $digests per second does my app use?
 * When I add a component, how much does it add to the `$digest` cycle?
-* Are you cleaning up scopes for that component you remove and add again?
-
-This is not easy to do without extra tooling.
+* Am I cleaning up scopes for this component when I add and remove it?
 
 `ngWatchWatcher`(I almost called it "[Every Breath You Take](https://www.youtube.com/results?search_query=every+breath+you+take)") helps you keep an eye on what your app is doing.
 You can use this to premempt performance issues, or identify which components are causing them after the fact.
@@ -27,7 +25,26 @@ Keep an eye on your scope and watcher counts:
 
 Visually monitor `$digest` activity:
 
-![$digest activity light](/screenshot1.png?raw=true)
+![$digest activity light](/screenshot2.png?raw=true)
+
+## Usage
+
+Include the `ngWatchWatcher` module.
+
+If you'd like the activity light, add a `<watch-light></watch-light>` directive tag anywhere in your markup.
+
+To print scope or watch information, just inject the factory and use the method you'd like:
+
+```javascript
+app.run(function(watchCounters, scopeCounters){
+  console.log("Counts",{
+    watchersByEl:     watchCounters.byEl(),
+    watchersByScope:  watchCounters.byScope(),
+    scopesByEl:       scopeCounters.byEl(),
+    scopesByScope:    scopeCounters.byScope()
+  });
+});
+```
 
 ##### [Live Demo (Look at the Console for the logs)](http://simpleascouldbe.github.io/ngWatchWatcher/)
 

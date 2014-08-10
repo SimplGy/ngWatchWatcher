@@ -72,7 +72,16 @@ input.ng-dirty.ng-valid {
   background-color: rgba(100,200,50,.1);
   box-shadow: inset 0 0 0 2px rgba(100,200,50,.5);
 }
-
+.muted {
+  color: #999;
+}
+h1 .muted {
+  font-size: 50%;
+}
+h1 {
+  line-height: 1;
+  margin-bottom: 20px;
+}
 nav {
   background-color:black;
   min-height: 15px;
