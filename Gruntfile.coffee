@@ -19,6 +19,14 @@ module.exports = (grunt) ->
     app: '.'
     tmp: '.tmp'
 
+  projectFiles = [
+    'ngWatchWatcher/watchWatcher.module.js' # Matches the pattern, but has to be first in source order
+    'ngWatchWatcher/scopeCounters.factory.js'
+    'ngWatchWatcher/watchCounters.factory.js'
+    'ngWatchWatcher/watchLight.controller.js'
+    'ngWatchWatcher/watchLight.directive.js'
+  ]
+
   grunt.initConfig
     cfg: cfg
 
@@ -45,17 +53,11 @@ module.exports = (grunt) ->
 
     uglify:
       min:
-        files: 'ngWatchWatcher.min.js': [
-          'ngWatchWatcher/watchWatcher.module.js' # Matches the pattern, but has to be first in source order
-          'ngWatchWatcher/*.js'
-        ]
+        files: 'ngWatchWatcher.min.js': projectFiles
 
     concat:
       noMin:
-        files: 'ngWatchWatcher.js': [
-          'ngWatchWatcher/watchWatcher.module.js' # Matches the pattern, but has to be first in source order
-          'ngWatchWatcher/*.js'
-        ]
+        files: 'ngWatchWatcher.js': projectFiles
 
 
 
