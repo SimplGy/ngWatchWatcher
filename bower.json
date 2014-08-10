@@ -1,0 +1,20 @@
+{
+  "name": "ngWatchWatcher",
+  "version": "0.0.1",
+  "homepage": "https://github.com/SimpleAsCouldBe/ngWatchWatcher",
+  "authors": [
+    "Eric Miller <hi@simple.gy>"
+  ],
+  "description": "Keep an eye on your Angular Watchers. The check engine light for your ng-code.",
+  "keywords": [
+    "angularjs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
