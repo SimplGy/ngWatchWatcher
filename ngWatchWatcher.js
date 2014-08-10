@@ -193,8 +193,8 @@ angular.module('watchWatcher').directive('watchLight', [ '$rootScope', function(
           '\n' +
           'Digest Information\n' +
           '------------------\n' +
-          'Digests Per Second:      ' + getDigestsPerSecond(recentDigests)      + ' digests (fewer is better)\n' +
-          'Average Digest Duration: ' + getAverageDigestDuration(recentDigests) + ' ms      (shorter is better)\n' +
+          'Digests Per Second:      ' + getDigestsPerSecond(recentDigests)      + ' digests (fewer is less taxing)\n' +
+          'Average Digest Duration: ' + getAverageDigestDuration(recentDigests) + ' ms      (shorter is more performant)\n' +
 //          'Recent Digest Count:     ' + recentDigests.length + '\n' +
           'Watches Fired So Far:    ' + watchCount + '\n' +
           '\n',
