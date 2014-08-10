@@ -1,4 +1,4 @@
-# ngWatchWatcher [Demo](http://simpleascouldbe.github.io/ngWatchWatcher/)
+# ngWatchWatcher  ([Demo](http://simpleascouldbe.github.io/ngWatchWatcher/))
 
 > The check engine light for your ng-code.
 
