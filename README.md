@@ -19,11 +19,11 @@ Let me know if you think I should rename this project "[Every Breath You Take](h
 
 Visually monitor `$digest` activity:
 
-![$digest activity light](/screenshot2.png?raw=true)
+![$digest activity light](/blinky.gif?raw=true)
 
 Click the blinky light for info on your `$digest` performance:
 
-![$digest activity light](/screenshot3.png?raw=true)
+![detailed $digest info](/screenshot3.png?raw=true)
 
 Keep an eye on your scope and watcher counts:
 

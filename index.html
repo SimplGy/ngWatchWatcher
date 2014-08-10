@@ -10,7 +10,7 @@
 
   <!-- The WatchLight triggers whenever any watch in your application fires. -->
   <!-- This makes it obvious how your development choices are impacting the digest loop. -->
-  <watch-light intro-text="This blinks activity for every Angular $digest cycle.<br/>Click to log detailed information to the console."></watch-light>
+  <watch-light intro-text="This light blinks activity for every Angular $digest cycle.<br/>Click to log detailed information to the console."></watch-light>
 
   <watch-info-bar></watch-info-bar>
 
@@ -96,7 +96,7 @@
         // This interval is kicking off a $digest.
         // In a real app this would be doing work.
         // Here I'm just showing that the activity indicator picks it up.
-      }, 4000);
+      }, 1000);
     });
   </script>
   <script src="sampleApp/main.controller.js"></script>
