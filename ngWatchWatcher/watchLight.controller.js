@@ -1,5 +1,5 @@
 
-angular.module('watchWatcher').controller('WatchLightController', function() {
+angular.module('watchWatcher').controller('WatchLightController',   function() {
 
 //  var startTime = Date.now();
   var cleanUpFrequency = 5000; // how often to clean up the stored information
@@ -20,6 +20,7 @@ angular.module('watchWatcher').controller('WatchLightController', function() {
 
   // Given an array of digest, how many digests were there per second, on average?
   function getDigestsPerSecond(digests) {
+    digests = digests || recentDigests;
     var count = digests.length;
     var time = digests[count - 1].start - digests[0].start;
     time /= 1000;
@@ -28,10 +29,11 @@ angular.module('watchWatcher').controller('WatchLightController', function() {
 
   // Given an array of digests, what was the average duration?
   function getAverageDigestDuration(digests) {
+    digests = digests || recentDigests;
     var i, len, duration, sum = 0;
     for (i=0,len=digests.length; i<len; i++){
       duration = digests[i].duration
-      if (duration) { // avoid any NaNs that may have shown up
+      if (duration) { // avoid any NaNs that may have shown up, 0s (falsy) are safe to ignore
         sum += duration;
       }
     }
@@ -43,8 +45,8 @@ angular.module('watchWatcher').controller('WatchLightController', function() {
       '\n' +
         'Digest Information\n' +
         '------------------\n' +
-        'Digests Per Second:      ' + getDigestsPerSecond(recentDigests)      + ' digests (fewer is better)\n' +
-        'Average Digest Duration: ' + getAverageDigestDuration(recentDigests) + ' ms      (shorter is better)\n' +
+        'Digests Per Second:      ' + getDigestsPerSecond(recentDigests)      + ' digests   (fewer is less taxing)\n' +
+        'Average Digest Duration: ' + getAverageDigestDuration(recentDigests) + ' ms        (shorter is more performant)\n' +
 //          'Recent Digest Count:     ' + recentDigests.length + '\n' +
         'Watches Fired So Far:    ' + watchCount + '\n' +
         '\n',

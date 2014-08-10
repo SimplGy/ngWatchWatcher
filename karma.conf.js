@@ -22,7 +22,7 @@ module.exports = function(config) {
       // Module Dependencies (listed separately to enforce source order)
       'ngWatchWatcher/watchWatcher.module.js',
       // Files Under Test
-      'ngWatchWatcher/**/*.js'
+      'ngWatchWatcher/*.js'
     ],
 
 

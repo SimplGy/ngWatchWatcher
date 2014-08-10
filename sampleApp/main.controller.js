@@ -64,9 +64,9 @@ angular.module('sampleApp').controller('MainController', function($scope, $inter
   }
   // For testing that the duration of digests is actually measured, it should grow when this method is used.
   function computedName() {
-    sleep = 15;
-    now = Date.now();
-    while(Date.now() - now < sleep){};
+    var sleep = 15;
+    var startTime = Date.now();
+    while(Date.now() - startTime < sleep){};
     return 'Computed Name';
   }
   $scope.addSlowWatch = function(){
