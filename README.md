@@ -1,8 +1,7 @@
 # ngWatchWatcher
 
-> Keep an eye on your Angular Watchers.
-
 > The check engine light for your ng-code.
+
 
 ## Why Use `ngWatchWatcher`?
 
@@ -23,7 +22,7 @@ Visually monitor `$digest` activity:
 
 ![$digest activity light](/screenshot2.png?raw=true)
 
-Click the light to for info on your `$digest` performance:
+Click the blinky light for info on your `$digest` performance:
 
 ![$digest activity light](/screenshot3.png?raw=true)
 
@@ -45,7 +44,7 @@ app.run(function(watchCounters, scopeCounters){
 
     watchCounters.byEl();    // An array of watchers, found by traversing elements
     watchCounters.byScope(); // An array of watchers found by traversing from $rootScope
-    
+
     scopeCounters.byEl();    // Array of scopes found by scope traversal
     scopeCounters.byScope(); // Array of scopes found by $rootScope traversal
 
