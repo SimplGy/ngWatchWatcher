@@ -12,7 +12,7 @@ angular.module('watchWatcher').directive('watchLight', [ '$rootScope', function(
       var recentDigests = [];
       var turnOffLighter, turnOffShimmer;
       var cleanUpFrequency = 5000; // how often to clean up the stored information
-      var digestsToKeep = 100; // How many recent digests to store
+      var digestsToKeep = 50; // How many recent digests to store
 
       // Light up the bulb, and set timeouts to un-light it after a bit
       function doLightUp(color, shimmerColor) {

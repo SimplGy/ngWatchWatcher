@@ -3,20 +3,19 @@
 > The check engine light for your ng-code.
 
 
-## Why Use `ngWatchWatcher`?
+### Why Watch `$watch`es?
 
 It helps you answer questions about your Angular application's performance:
 
-* How many $digests per second does my app use?
-* When I add a component, how much does it add to the `$digest` cycle?
-* Am I cleaning up scopes for this component when I add and remove it?
+* Know how many `$digest`s per second your app churns
+* Know your average `$digest` processing time.
+* Track the impact to your `$digest` cycle as your app grows
+* Know if you're cleaning up watches and scopes properly
 
-`ngWatchWatcher`(I almost called it "[Every Breath You Take](https://www.youtube.com/results?search_query=every+breath+you+take)") helps you keep an eye on what your app is doing.
-You can use this to premempt performance issues, or identify which components are causing them after the fact.
+You can use this to premempt performance issues, or identify which components are causing them.
+Let me know if you think I should rename this project "[Every Breath You Take](https://www.youtube.com/results?search_query=every+breath+you+take)"
 
-Tools for helping you understand what's going on with Angular Watchers and scopes. You can think of it like:
-
-## Features
+### Features
 
 Visually monitor `$digest` activity:
 
@@ -31,7 +30,7 @@ Keep an eye on your scope and watcher counts:
 ![Counts logged to console](/screenshot1.png?raw=true)
 
 
-## Usage
+### Usage
 
 Include the `ngWatchWatcher` module.
 
@@ -54,7 +53,7 @@ app.run(function(watchCounters, scopeCounters){
 
 ##### [Live Demo (Look at the Console for the logs)](http://simpleascouldbe.github.io/ngWatchWatcher/)
 
-## Notes
+### Notes
 
 An accurate count of all scopes in an angular application is tricky.
 
