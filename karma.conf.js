@@ -19,7 +19,7 @@ module.exports = function(config) {
       'http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.js',
       'http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      // Module Dependencies (order is important)
+      // Module Dependencies (listed separately to enforce source order)
       'ngWatchWatcher/watchWatcher.module.js',
       // Files Under Test
       'ngWatchWatcher/*.js'
