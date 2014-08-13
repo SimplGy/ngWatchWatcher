@@ -17,7 +17,7 @@ angular.module('watchWatcher').factory('watchCounters', [ '$rootScope', function
       watchers = watchers.concat(element.data().$scope.$$watchers);
     }
     angular.forEach(element.children(), function(childElement) {
-      return watchersByEl($(childElement));
+      return watchersByEl(angular.element(childElement));
     });
     return watchers;
   }
