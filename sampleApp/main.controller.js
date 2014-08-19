@@ -4,15 +4,15 @@ angular.module('sampleApp').controller('MainController', function($scope, $inter
   // Make it easy to get to the counters
 //      scope.counters = wwCounters;
   function logCounts() {
-    console.log("Counts",{
+    console.log("Watcher and Scope Counts",{
       watchersByEl:     watchCounters.byEl(),
       watchersByScope:  watchCounters.byScope(),
       scopesByEl:       scopeCounters.byEl(),
       scopesByScope:    scopeCounters.byScope()
     });
   }
-//      $interval(logCounts, 3000);
-  setTimeout(logCounts, 10);
+  setTimeout(logCounts, 1000);
+  setInterval(logCounts, 1000 * 10);
 
 
 
@@ -47,7 +47,7 @@ angular.module('sampleApp').controller('MainController', function($scope, $inter
     $scope.rolodex.push( angular.copy($scope.user) );
     $scope.user = {}; // start fresh
     $scope.userForm.$setPristine();
-    $('input:first').focus(); // start in a nice spot
+    document.getElementsByTagName('input')[0].focus(); // start in a nice spot
   };
 
   $scope.addFake = function(computedName){

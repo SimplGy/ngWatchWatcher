@@ -31,15 +31,16 @@ angular.module('watchWatcher').factory('scopeCounters', [ '$rootScope', function
   // Given a DOM element, return an array of scopes on it and children
   // Uses DOM traversal to find children
   // If no element is passed in, it uses the `body` element
-  function scopesByEl(element) {
-    element = element || angular.element(document.body);
+  function scopesByEl(el) {
+    el = el || document.body;
+    el = angular.element(el);
     var scopes;
     scopes = [];
-    if (element.data().hasOwnProperty('$scope')) {
-      scopes.push(element.data().$scope);
+    if (el.data().hasOwnProperty('$scope')) {
+      scopes.push(el.data().$scope);
     }
-    angular.forEach(element.children(), function(childElement) {
-      return scopesByEl($(childElement));
+    angular.forEach(el.children(), function(child) {
+      return scopesByEl(child);
     });
     return scopes;
   }
@@ -83,15 +84,16 @@ angular.module('watchWatcher').factory('watchCounters', [ '$rootScope', function
   // Given a DOM element, return an array of watchers on it and children
   // Uses DOM traversal to find children.
   // If no element is passed in, it uses the `body` element
-  function watchersByEl(element) {
-    element = element || angular.element(document.body);
+  function watchersByEl(el) {
+    el = el || document.body;
+    el = angular.element(el);
     var watchers;
     watchers = [];
-    if (element.data().hasOwnProperty('$scope')) {
-      watchers = watchers.concat(element.data().$scope.$$watchers);
+    if (el.data().hasOwnProperty('$scope')) {
+      watchers = watchers.concat(el.data().$scope.$$watchers);
     }
-    angular.forEach(element.children(), function(childElement) {
-      return watchersByEl($(childElement));
+    angular.forEach(el.children(), function(child) {
+      return watchersByEl(child);
     });
     return watchers;
   }
@@ -123,6 +125,7 @@ angular.module('watchWatcher').factory('watchCounters', [ '$rootScope', function
     byScope: watchersByScope
   };
 }]);
+
 
 angular.module('watchWatcher').controller('WatchLightController',   function() {
 

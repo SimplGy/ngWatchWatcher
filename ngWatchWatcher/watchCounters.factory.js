@@ -9,15 +9,16 @@ angular.module('watchWatcher').factory('watchCounters', [ '$rootScope', function
   // Given a DOM element, return an array of watchers on it and children
   // Uses DOM traversal to find children.
   // If no element is passed in, it uses the `body` element
-  function watchersByEl(element) {
-    element = element || angular.element(document.body);
+  function watchersByEl(el) {
+    el = el || document.body;
+    el = angular.element(el);
     var watchers;
     watchers = [];
-    if (element.data().hasOwnProperty('$scope')) {
-      watchers = watchers.concat(element.data().$scope.$$watchers);
+    if (el.data().hasOwnProperty('$scope')) {
+      watchers = watchers.concat(el.data().$scope.$$watchers);
     }
-    angular.forEach(element.children(), function(childElement) {
-      return watchersByEl(angular.element(childElement));
+    angular.forEach(el.children(), function(child) {
+      return watchersByEl(child);
     });
     return watchers;
   }

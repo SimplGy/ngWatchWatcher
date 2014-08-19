@@ -8,29 +8,32 @@ angular.module('sampleApp').directive('introText', function(){
       setTimeout(showTip, 2000);
 
       function showTip() {
-        var tip = $("<p style='position: fixed; transition: all .3s; box-shadow: 0 0 0 3px white; display:inline-block; padding: 5px; border-radius: 3px; font-size:14px; background: black; color: white;'>" + attrs.introText + "</p>");
+        var tip = angular.element("<p style='position: fixed; transition: all .3s; box-shadow: 0 0 0 3px white; display:inline-block; padding: 5px; border-radius: 3px; font-size:14px; background: black; color: white;'>" + attrs.introText + "</p>");
 //      tip.css( 'top', el.offset().top + el.height() );
 //      tip.css( 'right', el.offset().top + el.height() );
         tip.css( 'top', '-100px');
 
 
-
-        tip.appendTo(document.body);
-        $(window).on('click', function(){
+        angular.element(document.body).append(tip);
+        angular.element(window).on('click', function(){
           tip.remove();
         });
 
         setTimeout(function(){
           if (el[0].style.top) {
-            tip.css( 'top', parseFloat(el[0].style.top) + el.height() + margin );
+            var newTop = parseFloat(el[0].style.top) + el[0].offsetHeight + margin;
+            tip.css( 'top', newTop + 'px' );
           } else {
-            tip.css( 'bottom', parseFloat(el[0].style.bottom) + el.height() );
+            var newBot = parseFloat(el[0].style.bottom) + el[0].offsetHeight;
+            tip.css( 'bottom', newBot + 'px' );
           }
 
           if (el[0].style.right) {
-            tip.css( 'right', parseFloat(el[0].style.right));
+            var newRight = parseFloat(el[0].style.right);
+            tip.css( 'right', newRight + 'px' );
           } else {
-            tip.css( 'left', parseFloat(el[0].style.left));
+            var newLeft = parseFloat(el[0].style.left);
+            tip.css( 'left', newLeft + 'px');
           }
         }, 1)
 

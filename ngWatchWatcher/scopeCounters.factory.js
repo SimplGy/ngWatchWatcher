@@ -26,15 +26,16 @@ angular.module('watchWatcher').factory('scopeCounters', [ '$rootScope', function
   // Given a DOM element, return an array of scopes on it and children
   // Uses DOM traversal to find children
   // If no element is passed in, it uses the `body` element
-  function scopesByEl(element) {
-    element = element || angular.element(document.body);
+  function scopesByEl(el) {
+    el = el || document.body;
+    el = angular.element(el);
     var scopes;
     scopes = [];
-    if (element.data().hasOwnProperty('$scope')) {
-      scopes.push(element.data().$scope);
+    if (el.data().hasOwnProperty('$scope')) {
+      scopes.push(el.data().$scope);
     }
-    angular.forEach(element.children(), function(childElement) {
-      return scopesByEl($(childElement));
+    angular.forEach(el.children(), function(child) {
+      return scopesByEl(child);
     });
     return scopes;
   }
